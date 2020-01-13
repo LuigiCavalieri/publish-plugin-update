@@ -1,0 +1,8 @@
+{
+	// Full path to the 'wp-content' folder of your local installation of WordPress.
+	"wp_content_path": "",
+
+	// Full path to the folder containing the Working Copies of the SVN repositories 
+	// hosted on WordPress.org.
+	"svn_archive_path": ""
+}
