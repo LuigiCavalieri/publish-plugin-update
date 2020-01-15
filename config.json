@@ -4,5 +4,11 @@
 
 	// Full path to the folder containing the Working Copies of the SVN repositories 
 	// hosted on WordPress.org.
-	"svn_archive_path": ""
+	"svn_archive_path": "",
+
+	// Set to 'true' if you want to compress CSS and JavaScript files.
+	//
+	// Note: for the script to compress CSS and JavaScript files, 'uglifycss'
+	//       and 'uglify-js' must be installed on your Mac.
+	"uglify": "false"
 }

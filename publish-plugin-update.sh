@@ -122,11 +122,10 @@ if [ -d "${WORKING_COPY_PATH}/tags/${plugin_version}" ]; then
 	exit
 fi
 
-# If you don't want to compress CSS and JavaScript files
-# or 'uglifycss' and 'uglifyjs' are not installed on your Mac
-# you can comment the following two lines of code.
-uglify 'css'
-uglify 'js'
+if [ "${UGLIFY}" = 'true' ]; then
+	uglify 'css'
+	uglify 'js'
+fi
 
 rsync --archive --delete --verbose --exclude='.DS_Store' --exclude='.git' . "${WORKING_COPY_PATH}/trunk"
 
