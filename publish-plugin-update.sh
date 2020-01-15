@@ -3,7 +3,7 @@
 # This script automates some of the tasks needed for the publishing of
 # plugin updates on WordPress.org.
 #
-# Version: 1.0
+# Version: 1.0.1
 #
 #
 # Copyright 2019 Luigi Cavalieri.
