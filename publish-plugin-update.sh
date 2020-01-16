@@ -3,10 +3,10 @@
 # This script automates some of the tasks needed for the publishing of
 # plugin updates on WordPress.org.
 #
-# Version: 1.0.1
+# Version: 1.0.2
 #
 #
-# Copyright 2019 Luigi Cavalieri.
+# Copyright 2020 Luigi Cavalieri.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -67,13 +67,15 @@ uglify() {
 plugin_version=""
 plugin_folder_name=$1
 
+SCRIPT_PATH=$( dirname "${BASH_SOURCE[0]}" )
+
 while read line; do
 	if [[ "${line}" =~ \"(.+)\":[[:blank:]]\"(.+)\" ]]; then
 		constant_name=$( echo "${BASH_REMATCH[1]}" | tr '[:lower:]' '[:upper:]' )
 
 		readonly "${constant_name}"=${BASH_REMATCH[2]}
 	fi
-done < config.json
+done < "${SCRIPT_PATH}/config.json"
 
 while [ -z "${plugin_folder_name}" ]; do
 	read -p "Please, provide the name of the plugin's folder: " plugin_folder_name
@@ -93,7 +95,7 @@ while read line; do
 		plugin_version=${BASH_REMATCH[1]}
 		break;
 	fi
-done < ${plugin_folder_name}.php
+done < "${plugin_folder_name}.php"
 
 if [ -z "${plugin_version}" ]; then
 	echo "Error: version number not found in '${plugin_folder_name}.php'."
