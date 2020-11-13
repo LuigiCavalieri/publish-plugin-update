@@ -3,7 +3,7 @@
 # This script automates some of the tasks needed for the publishing of
 # plugin updates on WordPress.org.
 #
-# Version: 1.0.2
+# Version: 1.0.3
 #
 #
 # Copyright 2020 Luigi Cavalieri.
@@ -124,6 +124,14 @@ if [ -d "${WORKING_COPY_PATH}/tags/${plugin_version}" ]; then
 	exit
 fi
 
+echo "I am ready to publish version ${plugin_version}"
+
+read -p 'Do you wish to continue? (Y/N) ' answer
+
+if [ "${answer}" = 'N' ] || [ "${answer}" = 'n' ]; then
+    exit
+fi
+
 if [ "${UGLIFY}" = 'true' ]; then
 	uglify 'css'
 	uglify 'js'
@@ -151,6 +159,6 @@ for (( i=0; i<${#changes[@]}; i++ )); do
 done
 
 svn copy trunk "tags/${plugin_version}"
-svn commit -m "Publishing version ${plugin_version}."
+svn commit -m "Publishing version ${plugin_version}"
 
 echo "Version ${plugin_version} has been published on WordPress.org."
