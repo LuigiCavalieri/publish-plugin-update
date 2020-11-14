@@ -3,7 +3,7 @@
 # This script automates some of the tasks needed for the publishing of
 # plugin updates on WordPress.org.
 #
-# Version: 1.0.3
+# Version: 1.0.4
 #
 #
 # Copyright 2020 Luigi Cavalieri.
@@ -124,7 +124,7 @@ if [ -d "${WORKING_COPY_PATH}/tags/${plugin_version}" ]; then
 	exit
 fi
 
-echo "I am ready to publish version ${plugin_version}"
+echo "I am ready to publish version ${plugin_version} of the plugin."
 
 read -p 'Do you wish to continue? (Y/N) ' answer
 
