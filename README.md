@@ -34,4 +34,4 @@ Licenced under the [GPL v3.0](https://opensource.org/licenses/GPL-3.0).
 
 ## Notes
 
-Developed on macOS 10.14.6 with GNU bash 3.2.57.
+Developed on macOS 10.15.7 with GNU bash 3.2.57.
