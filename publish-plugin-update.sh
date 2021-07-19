@@ -3,10 +3,10 @@
 # This script automates some of the tasks needed for the publishing of
 # plugin updates on WordPress.org.
 #
-# Version: 1.0.4
+# Version: 1.0.5
 #
 #
-# Copyright 2020 Luigi Cavalieri.
+# Copyright 2021 Luigi Cavalieri.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -64,6 +64,7 @@ uglify() {
 
 # *********************************************************************** #
 
+plugin_name=""
 plugin_version=""
 plugin_folder_name=$1
 
@@ -91,7 +92,13 @@ fi
 cd "./${plugin_folder_name}"
 
 while read line; do
-	if [[ "${line}" =~ Version:[[:blank:]]*([.0-9]+) ]]; then
+    if [[ "${line}" =~ Plugin[[:blank:]]Name:[[:blank:]]*([^\n]+) ]]; then
+        name=${BASH_REMATCH[1]}
+
+        # Strips trailing white spaces.
+        plugin_name="${name%"${name##*[![:blank:]]}"}"
+        
+    elif [[ "${line}" =~ Version:[[:blank:]]*([.0-9]+) ]]; then
 		plugin_version=${BASH_REMATCH[1]}
 		break;
 	fi
@@ -124,7 +131,7 @@ if [ -d "${WORKING_COPY_PATH}/tags/${plugin_version}" ]; then
 	exit
 fi
 
-echo "I am ready to publish version ${plugin_version} of the plugin."
+echo "I am ready to publish version ${plugin_version} of ${plugin_name}."
 
 read -p 'Do you wish to continue? (Y/N) ' answer
 
@@ -159,6 +166,11 @@ for (( i=0; i<${#changes[@]}; i++ )); do
 done
 
 svn copy trunk "tags/${plugin_version}"
-svn commit -m "Publishing version ${plugin_version}"
 
-echo "Version ${plugin_version} has been published on WordPress.org."
+if [ -n "${plugin_name}" ]; then
+    svn commit -m "Publishing ${plugin_name} ${plugin_version}"
+else
+    svn commit -m "Publishing version ${plugin_version}"
+fi
+
+echo "${plugin_name} ${plugin_version} has been published on WordPress.org."
