@@ -3,7 +3,7 @@
 # This script automates some of the tasks needed for the publishing of
 # plugin updates on WordPress.org.
 #
-# Version: 1.0.5
+# Version: 1.0.6
 #
 #
 # Copyright 2021 Luigi Cavalieri.
@@ -92,7 +92,7 @@ fi
 cd "./${plugin_folder_name}"
 
 while read line; do
-    if [[ "${line}" =~ Plugin[[:blank:]]Name:[[:blank:]]*([^\n]+) ]]; then
+    if [[ "${line}" =~ Plugin[[:blank:]]Name:[[:blank:]]*(.+) ]]; then
         name=${BASH_REMATCH[1]}
 
         # Strips trailing white spaces.
